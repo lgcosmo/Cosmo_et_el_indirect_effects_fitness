@@ -10,14 +10,12 @@ function net_coevolution(;A::Array{Float64}, A_n::Array{Float64}, net_info::Data
     invader=net_info.invader[1]
 
     dz=zeros(tmax, n_sp)
-    #dw=zeros(tmax, n_sp)
     D=zeros(n_sp, n_sp)
     Q=zeros(n_sp, n_sp)
     Q_sum=zeros(n_sp)
     w0=zeros(n_sp)
-    #weq_1=zeros(n_sp)
-    weq_2=zeros(n_sp)
-    weq_3=zeros(n_sp)
+    weq_preinvasion=zeros(n_sp)
+    weq_postinvasion=zeros(n_sp)
 
     teq=0
     teq_inv=0
@@ -27,12 +25,9 @@ function net_coevolution(;A::Array{Float64}, A_n::Array{Float64}, net_info::Data
     
     z0=rand(0.0:0.001:10.0, n_sp)
     θ=rand(0.0:0.001:10.0, n_sp)
-    #θ[invader]=5.0
 
     @views dz[1,:].=z0
     fitness!(w=w0, dz=dz, θ=θ, D=D, A=A_n, degree=degree_native, Q=Q, Q_sum=Q_sum, α=α, m=m, ρ=ρ, time=1)
-
-    #@views dw[1,:].=fitness!(z=z0, θ=θ, w=w, D=D, A=A, degree=degree, Q=Q, Q_sum=Q_sum, α=α, m=m, ρ=ρ)
 
    @inbounds for t in 1:(tmax-1)
 
@@ -52,8 +47,7 @@ function net_coevolution(;A::Array{Float64}, A_n::Array{Float64}, net_info::Data
             
             teq_inv=t
             dz[t+1,invader]=dz[1,invader]
-            #fitness!(w=weq_1, dz=dz, θ=θ, D=D, A=A_n, degree=degree_native, Q=Q, Q_sum=Q_sum, α=α, m=m, ρ=ρ, time=teq_inv)
-            fitness!(w=weq_2, dz=dz, θ=θ, D=D, A=A, degree=degree, Q=Q, Q_sum=Q_sum, α=α, m=m, ρ=ρ, time=(teq_inv+1))
+            fitness!(w=weq_preinvasion, dz=dz, θ=θ, D=D, A=A, degree=degree, Q=Q, Q_sum=Q_sum, α=α, m=m, ρ=ρ, time=(teq_inv+1))
             inv=inv+1.0
 
         elseif (NaNMath.mean(zdif) < ϵ) && (inv>0.0)
@@ -63,69 +57,38 @@ function net_coevolution(;A::Array{Float64}, A_n::Array{Float64}, net_info::Data
 
     end
 
-    fitness!(w=weq_3, dz=dz, θ=θ, D=D, A=A, degree=degree, Q=Q, Q_sum=Q_sum, α=α, m=m, ρ=ρ, time=teq)
+    fitness!(w=weq_postinvasion, dz=dz, θ=θ, D=D, A=A, degree=degree, Q=Q, Q_sum=Q_sum, α=α, m=m, ρ=ρ, time=teq)
 
     @views zeq=dz[teq,:]
 
     teq_afterinv=teq-teq_inv
-    #wdif=weq_3.-w0
-    #w_loss_freq=ifelse.(wdif.<0.0, 1.0, 0.0)
-    #w_loss_amount=ifelse.(wdif.<0.0, wdif, 0.0)
 
-    #wdif_a1=weq_2.-weq_1
-    #w_loss_freq_a1=ifelse.(wdif_a1.<0.0, 1.0, 0.0)
-    #w_loss_amount_a1=ifelse.(wdif_a1.<0.0, wdif_a1, 0.0)
+    wdif=weq_postinvasion.-weq_preinvasion
 
-    wdif=weq_3.-weq_2
-    wl_freq=ifelse.(wdif.<0.0, 1.0, 0.0)
-    wl_mag=ifelse.(wdif.<0.0, wdif, 0.0)
-    wl_mag.=abs.(wl_mag)
-    wg_mag=ifelse.(wdif.>0.0, wdif, 0.0)
-    wg_mag.=abs.(wg_mag)
+    T_post=T_matrix(dz=dz, A=A, D=D, Q=Q, Q_sum=Q_sum, m=m, α=α, time=teq)
+    T_pre=T_matrix_native(dz=dz, A=A_n, D=D, inv_pos=invader, Q=Q, Q_sum=Q_sum, m=m, α=α, time=teq_inv)
 
-    #wdif_a3=weq_3.-weq_1
-    #w_loss_freq_a3=ifelse.(wdif_a3.<0.0, 1.0, 0.0)
-    #w_loss_amount_a3=ifelse.(wdif_a3.<0.0, wdif_a3, 0.0)
+    T_post[diagind(T_post)].=0.0
+    T_pre[diagind(T_post)].=0.0
 
-    T=T_matrix(dz=dz, A=A, D=D, Q=Q, Q_sum=Q_sum, m=m, α=α, time=teq)
-    Tn=T_matrix_native(dz=dz, A=A_n, D=D, inv_pos=invader, Q=Q, Q_sum=Q_sum, m=m, α=α, time=teq_inv)
+    Tin_post=dropdims(sum(T_post, dims=2), dims=2)
+    Tin_pre=dropdims(sum(T_pre, dims=2), dims=2)
 
-    T_diag=deepcopy(T)
-    T_diag[diagind(T_diag)].=0.0
-    Tin_diag=dropdims(sum(T_diag, dims=2), dims=2)
+    T_ind_post=T_post.*(1.0.-A)
+    T_ind_pre=T_pre.*(1.0.-A_n)
 
-    T_ind=T_diag.*(1.0.-A)
-    Tin_ind=dropdims(sum(T_ind, dims=2), dims=2)
-    ind_prop=Tin_ind./Tin_diag
+    indirect_effects_post=dropdims(sum(T_ind_post, dims=2), dims=2)./Tin_post
+    indirect_effects_pre=dropdims(sum(T_ind_pre, dims=2), dims=2)./Tin_pre
 
-    Tn_diag=deepcopy(Tn)
-    Tn_diag[diagind(Tn_diag)].=0.0
-    Tnin_diag=dropdims(sum(Tn_diag, dims=2), dims=2)
-
-    Tn_ind=Tn_diag.*(1.0.-A_n)
-    Tnin_ind=dropdims(sum(Tn_ind, dims=2), dims=2)
-    ind_prop_native=Tnin_ind./Tnin_diag
-
-    Tout=dropdims(mean(T, dims=1), dims=1)
-    Tin_apis=T[:,invader]
-    Tout_apis=Tout[invader]
-
-    if n_p>0 && n_a>0
-        type=vcat(repeat(["plant"], n_p), repeat(["animal"], n_a))
-    elseif n_p==0 && n_a==0
-        type=repeat(["unknown"], n_sp)
-    end
-
+    type=vcat(repeat(["plant"], n_p), repeat(["animal"], n_a))
+   
     sp_id=["SP$i" for i in 1:n_sp]
     sp_id[invader]="SP_Apis"
 
-    #df=DataFrame(network=net_name, scenario=scenario, sp_id=sp_id, type=type, cp=cp, degree=degree, degree_native=degree_native, theta=θ, z0=z0, zeq=zeq, w0=w0, weq_1=weq_1, weq_2=weq_2, weq_3=weq_3, wdif=wdif, 
-    #w_loss_freq=w_loss_freq, w_loss_amount=w_loss_amount, wdif_a1=wdif_a1, w_loss_freq_a1=w_loss_freq_a1, w_loss_amount_a1=w_loss_amount_a1, wdif_a2=wdif_a2, w_loss_freq_a2=w_loss_freq_a2,
-    #w_loss_amount_a2=w_loss_amount_a2, wdif_a3=wdif_a3, w_loss_freq_a3=w_loss_freq_a3, w_loss_amount_a3=w_loss_amount_a3,
-    #evo_broadcast=Tout, Tin_apis=Tin_apis, Tout_apis=Tout_apis, T_theta=T_θ, teq=teq, teq_inv=teq_inv, teq_afterinv=teq_afterinv, m=m, alpha=α, phi=ϕ, rho=ρ, sim=sim)
-
-    df=DataFrame(network=net_name, scenario=scenario, sp_id=sp_id, type=type, cp=cp, degree=degree, degree_native=degree_native, theta=θ, z0=z0, zeq=zeq, w0=w0, weq_inv=weq_2, weq_final=weq_3, wdif=wdif, 
-    wl_freq=wl_freq, wl_mag=wl_mag, wg_mag=wg_mag, indp=ind_prop, indp_native=ind_prop_native, Tin_apis=Tin_apis, Tout_apis=Tout_apis, teq=teq, teq_inv=teq_inv, teq_afterinv=teq_afterinv, m=m, alpha=α, phi=ϕ, rho=ρ, sim=sim)
+    df=DataFrame(network=net_name, scenario=scenario, sp_id=sp_id, type=type, cp=cp, degree=degree, degree_native=degree_native, 
+    theta=θ, z0=z0, zeq=zeq, w0=w0, weq_preinvasion=weq_preinvasion, weq_postinvasion=weq_postinvasion, wdif=wdif, 
+    indirect_effects_post=indirect_effects_post, indirect_effects_pre=indirect_effects_pre, teq=teq, teq_inv=teq_inv, 
+    teq_afterinv=teq_afterinv, m=m, alpha=α, phi=ϕ, rho=ρ, sim=sim)
 
     return df
 
