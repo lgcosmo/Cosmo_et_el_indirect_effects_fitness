@@ -16,16 +16,33 @@
 
 # The function saves a dataframe containing the desired number of simulations for a particular combination of parameter values/empirical network
 # This data frame contains the following variables:
-    
 
-
+#network: ID of the network
+#scenario: scenario of the simulation (normal or invasion)
+#sp_id: ID of each species within the network
+#type: whether species are plants or animals
+#position: core or peripheral position of species in the network
+#degree: number of mutualistic partners of the species
+#theta: environmental optimum of the species
+#z0: initial trait values
+#zeq: trait values at the coevolutionary equilibrium
+#wmax: maximum theoretical fitness of the species
+#w0: initial fitness
+#weq: fitness at coevolutionary equilibrium
+#indirect_effects: contribution of indirect effects to the species
+#teq: time until equilibrium
+#m: parameter controlling the proportional contribution of mutualisms as selective pressures
+#alpha: parameter α of the model
+#rho: parameter ρ of the model
+#theta_max: upper bound of the uniform distribution used to sample environmental optima of species
+#sim: ID of the simulation
 
 using Distributed
 
 addprocs(20)
 
 @everywhere using DrWatson
-@everywhere @quickactivate "coevo_fit"
+@everywhere @quickactivate "Cosmo_et_al_indirect_effects_fitness"
 
 @everywhere begin
 

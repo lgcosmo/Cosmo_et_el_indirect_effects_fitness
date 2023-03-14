@@ -215,15 +215,3 @@ function T_matrix_native(;dz::Array{Float64}, A::Array{Float64}, inv_pos::Int64,
     return T
 
 end
-
-function Qij2!(;D::Array{Float64}, A::Array{Float64}, Q::Array{Float64}, Q_sum::Array{Float64}, α::Float64, m::Float64)
-    
-    fill!(Q, 0.0)
-    fill!(Q_sum, 0.0)
-
-    @. Q=A*(exp(-α*(D^2)))
-    sum!(Q_sum, Q)
-    @. Q=(m*(Q/Q_sum))*D
-    sum!(Q_sum, Q)
-
-end
