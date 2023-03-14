@@ -11,13 +11,21 @@ Cosmo_et_al_indirect_effects_fitness
 2. Author information:
 
 Leandro G. Cosmo: Programa de Pós-Graduação em Ecologia, Departamento de Ecologia, Instituto de Biociências, Universidade de São Paulo, São Paulo, Brazil.
+
 Ana Paula A. Assis: Departamento de Genética e Biologia Evolutiva, Instituto de Biociências, Universidade de São Paulo, São Paulo, Brazil.
+
 Marcus A. Aguiar: Instituto de Física ‘Gleb Wataghin’, Universidade Estadual de Campinas, Campinas, Brazil
+
 Mathias M. Pires: Departamento de Biologia Animal, Instituto de Biologia, Universidade Estadual de Campinas, Campinas, Brazil.
+
 Alfredo Valido: Island Ecology and Evolution Research Group, Institute of Natural Products and Agrobiology (IPNA-CSIC), C/Astrofísico Francisco Sánchez 3, 38206 La Laguna, Tenerife (Canary Islands, Spain).
+
 Pedro Jordano: Estación Biológica de Doñana, CSIC, av. Americo Vespucio 26, 41092, Sevilla, Spain; Departamento de Biología Vegetal y Ecología, Universidad de Sevilla, Sevilla, Spain.
+
 John N. Thompson: Department of Ecology and Evolutionary Biology, University of California, Santa Cruz, 95064, California, USA.
+
 Jordi Bascompte: Department of Evolutionary Biology and Environmental Studies, University of Zurich, Winterthurerstrasse 190, Zurich, CH-8057, Switzerland.
+
 Paulo R. Guimaraes Jr.: Departamento de Ecologia, Instituto de Biociências, Universidade de São Paulo, São Paulo, Brazil.
 
 Corresponding author: Leandro G. Cosmo, E-Mail: lgcosmo@usp.br
