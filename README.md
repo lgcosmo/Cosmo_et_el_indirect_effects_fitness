@@ -22,7 +22,7 @@ Alfredo Valido: Island Ecology and Evolution Research Group, Institute of Natura
 
 Pedro Jordano: Estación Biológica de Doñana, CSIC, av. Americo Vespucio 26, 41092, Sevilla, Spain; Departamento de Biología Vegetal y Ecología, Universidad de Sevilla, Sevilla, Spain.
 
-John N. Thompson: Department of Ecology and Evolutionary Biology, University of California, Santa Cruz, 95064, California, USA.
+John N. Thompson: Department of Ecology and Evolutionary Biology, University of California, Santa Cruz, 130 McAllister Way, Santa Cruz, California, 95060, USA.
 
 Jordi Bascompte: Department of Evolutionary Biology and Environmental Studies, University of Zurich, Winterthurerstrasse 190, Zurich, CH-8057, Switzerland.
 
@@ -32,7 +32,7 @@ Corresponding author: Leandro G. Cosmo, E-Mail: lgcosmo@usp.br
 
 2. Information about funding sources that supported the collection of the data:
 
-This study was financed in part by the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior – Brasil (CAPES) – Finance Code 001. LGC is funded by a São Paulo Research Foundation PhD scholarship (FAPESP; grants # 2019/22146-3 and #2022/07939-0). PRG is funded by CNPq (307134/2017-2), FAPESP (São Paulo Research Foundation; grant: # 2018/14809-0), and the Royal Society, London (CHL/R1/180156). APA was supported by Sao Paulo Research Foundation (FAPESP grant #2016/14277-2). MMP is funded by Sao Paulo Research Foundation (FAPESP grant #2019/25478-7). MAA is funded by São Paulo Research Foundation (FAPESP, grants #2016/01343‐7 and #2021/14335-0 - ICTP‐SAIFR), and by Brazil's Council for Scientific and Technological Development (CNPq, grant #301082/2019‐7). A.V. is supported by grant PGC2018-099772-B-100 from Spanish Ministry of Science, Innovation, and Universities (AEI). JB’s research is supported by the Swiss National Science Foundation (grant 310030_197201).
+This study was financed in part by the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior – Brasil (CAPES) – Finance Code 001. LGC is funded by a São Paulo Research Foundation PhD scholarship (FAPESP; grants # 2019/22146-3 and #2022/07939-0). PRG is funded by CNPq (307134/2017-2), FAPESP (São Paulo Research Foundation; grant: # 2018/14809-0), and the Royal Society, London (CHL/R1/180156). APA was supported by Sao Paulo Research Foundation (FAPESP grant #2016/14277-2). MMP is funded by Sao Paulo Research Foundation (FAPESP grant #2019/25478-7). MAA is funded by São Paulo Research Foundation (FAPESP, grants #2016/01343‐7 and #2021/14335-0 - ICTP‐SAIFR), and by Brazil's Council for Scientific and Technological Development (CNPq, grant #301082/2019‐7). A.V. is supported by grant PGC2018-099772-B-100 from Spanish Ministry of Science, Innovation, and Universities (AEI). PJ is funded by the Spanish Ministry of Science, Innovation, and Universities (PID2022-136812NB-I00) and LifeWatch ERIC-SUMHAL (LIFEWATCH-2019-09-CSIC-13)/FEDER-EU funding, and the VI and VII Research Funding Program from Universidad de Sevilla (2021/00000826). JB’s research is supported by the Swiss National Science Foundation (grant 310030_197201).
 
 DATA & FILE OVERVIEW
 
