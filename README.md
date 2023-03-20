@@ -1,4 +1,4 @@
-# Indirect effects decrease species fitness in coevolved mutualistic networks
+# Indirect effects shape species fitness in coevolved mutualistic networks
 
 This README_Cosmo_et_al_indirect_effects_fitness.txt file was generated on 2023-03-14 by Leandro Giacobelli Cosmo
 
