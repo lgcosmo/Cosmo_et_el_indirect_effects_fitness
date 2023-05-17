@@ -2,6 +2,8 @@
 
 This README_Cosmo_et_al_indirect_effects_fitness.txt file was generated on 17.05.2023 by Leandro Giacobelli Cosmo
 
+[![DOI](https://zenodo.org/badge/609138026.svg)](https://zenodo.org/badge/latestdoi/609138026)
+
 GENERAL INFORMATION
 
 1. Title of Dataset: 
