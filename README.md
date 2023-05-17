@@ -1,6 +1,6 @@
 # Indirect effects shape species fitness in coevolved mutualistic networks
 
-This README_Cosmo_et_al_indirect_effects_fitness.txt file was generated on 2023-03-14 by Leandro Giacobelli Cosmo
+This README_Cosmo_et_al_indirect_effects_fitness.txt file was generated on 17.05.2023 by Leandro Giacobelli Cosmo
 
 GENERAL INFORMATION
 
@@ -82,5 +82,16 @@ To (locally) reproduce this project, do the following:
 
 This will install all necessary packages for you to be able to run the scripts and everything should work out of the box, including correctly finding local paths. 
 
-After installing everything, run the script "main_simulations.jl"  or "main_simulations_invasion.jl" located at the "scripts" folder.
-For specific details about the scripts and the data frames that the simulations output, please refer to the instructions at each of the scripts mentioned above.
+After installing everything, run the script "main_simulations.jl"  or "main_simulations_invasion.jl" located at the "scripts" folder. These scripts were the ones used in the main text of the manuscript and can be used as a "demo" of the code. However, the code allows the user to parameterize the model with any given desired structure of empirical network and parameter values.
+
+For specific details about the scripts and the data frames generated as outputs from the simulations, please refer to the instructions at each of the scripts mentioned above.
+
+SYSTEM REQUIREMENTS:
+
+This code has been tested on Linux (Ubuntu) and Windows (Windows 10 and 11) operating systems. The code requires only a standard computer with enough RAM to support the operations. For minimal performance, this will be a computer with about 8 GB of RAM. For optimal performance, a computer with the following specs is recommended:
+
+RAM: 16+ GB
+CPU: 4+ cores, 3.3+ GHz/core
+
+However, the optimal performance requirements will vary depending on the size and number of the empirical networks used to parameterize the simulations. Larger networks (1000+ species) require more RAM and a faster CPU for optimal performance. Runtimes may vary as well depending on the size and number of empirical networks, and the number of replicates desired. Typically for less than 100 empirical networks with average size of <500 species the code should run within 10-30 depending on the user computer specs.
+
